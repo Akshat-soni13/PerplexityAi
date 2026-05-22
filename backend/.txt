@@ -1,1 +1,2 @@
- 
+ npm install @langchain/google-genai phele genAi
+me langchain me jana ke badh ye open karna hai npm install @langchain/google-genai langchain ye  bhi intall karnlene a hai
