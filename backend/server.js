@@ -6,7 +6,7 @@ import { testAI } from "./src/service/ai.service.js"
 dotenv.config()
 
 connectToDb()
-testAI()
+// testAI()
 
 
 app.listen(3000,()=>{

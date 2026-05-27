@@ -1,7 +1,7 @@
 import React from "react";
 import { User, Mail, Lock, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import EnergyTrailSnake from "../../../global/component/EnergyTrailSnake.jsx";
+import EnergyTrailSnake from "../../../global/component/EnergyTrailSnake.jsx.jsx";
 
 const Register = () => {
   return (

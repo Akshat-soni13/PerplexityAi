@@ -1,8 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
 import { Mail, Lock, ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import EnergyTrailSnake from "../../../global/component/EnergyTrailSnake.jsx";
+import { useAuth } from "../hook/useAuth.js";
+import { toast } from "sonner";
+
 const Login = () => {
+
+  const navigate = useNavigate();
+  
+
+  const { handleLogin } = useAuth();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const submitForm = async (e) => {
+
+    e.preventDefault();
+    
+      if (!email || !password) {
+         toast.error("Please fill all fields");
+         return;
+      }
+
+    try {
+
+      const payload = {
+        email,password
+      }
+
+      await handleLogin(email,password);
+
+      toast.success("Login Successful");
+      navigate("/");
+
+    } catch (error) {
+
+      toast.error("Invalid Credentials");
+      console.log(error);
+
+    }
+  };
+
   return (
     <div className="relative min-h-screen bg-black overflow-hidden">
 
@@ -19,6 +59,7 @@ const Login = () => {
 
           {/* Logo */}
           <div className="flex justify-center mb-8">
+
             <div className="relative">
 
               <div className="absolute inset-0 rounded-full bg-[#D4AF37]/20 blur-2xl animate-pulse" />
@@ -30,7 +71,9 @@ const Login = () => {
                 </h1>
 
               </div>
+
             </div>
+
           </div>
 
           {/* Brand */}
@@ -47,15 +90,18 @@ const Login = () => {
           </div>
 
           {/* Login Card */}
-          <div className="
-            bg-[#141414]/85
-            backdrop-blur-2xl
-            border
-            border-[#2A2A2A]
-            rounded-3xl
-            p-8
-            shadow-[0_0_50px_rgba(212,175,55,0.08)]
-          ">
+          <form
+            onSubmit={submitForm}
+            className="
+              bg-[#141414]/85
+              backdrop-blur-2xl
+              border
+              border-[#2A2A2A]
+              rounded-3xl
+              p-8
+              shadow-[0_0_50px_rgba(212,175,55,0.08)]
+            "
+          >
 
             <h2 className="text-white text-2xl font-semibold text-center">
               Welcome Back
@@ -82,6 +128,8 @@ const Login = () => {
               <input
                 type="email"
                 placeholder="Email Address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="
                   w-full
                   bg-[#0D0D0D]
@@ -118,6 +166,8 @@ const Login = () => {
               <input
                 type="password"
                 placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="
                   w-full
                   bg-[#0D0D0D]
@@ -139,6 +189,7 @@ const Login = () => {
 
             {/* Login Button */}
             <button
+              type="submit"
               className="
                 w-full
                 bg-gradient-to-r
@@ -176,6 +227,7 @@ const Login = () => {
 
             {/* Google */}
             <button
+              type="button"
               className="
                 w-full
                 border
@@ -210,9 +262,12 @@ const Login = () => {
 
             </p>
 
-          </div>
+          </form>
+
         </div>
+
       </div>
+
     </div>
   );
 };
