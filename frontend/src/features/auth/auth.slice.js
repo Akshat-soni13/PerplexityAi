@@ -4,7 +4,8 @@ const authSlice = createSlice({
     name:"auth",
     initialState:{
         user:null,
-        loading:false,
+        loading:true,
+        // note above laoding is true whenn we perform hydartion matlaab hamne app me user ki get me call to set user inital stat 
         error:null
     },
     reducers:{

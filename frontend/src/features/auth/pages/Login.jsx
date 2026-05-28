@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import EnergyTrailSnake from "../../../global/component/EnergyTrailSnake.jsx";
 import { useAuth } from "../hook/useAuth.js";
 import { toast } from "sonner";
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 
 const Login = () => {
 
@@ -14,6 +16,12 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const user = useSelector(state=> state.auth.user)
+  const loading = useSelector(state=> state.auth.loading)
+
+
+
 
   const submitForm = async (e) => {
 
@@ -30,7 +38,10 @@ const Login = () => {
         email,password
       }
 
-      await handleLogin(email,password);
+       await handleLogin({
+    email,
+    password,
+  });
 
       toast.success("Login Successful");
       navigate("/");
@@ -42,6 +53,11 @@ const Login = () => {
 
     }
   };
+
+  if(!loading && user)
+  {
+    return <Navigate to="/" replace></Navigate>
+  }
 
   return (
     <div className="relative min-h-screen bg-black overflow-hidden">

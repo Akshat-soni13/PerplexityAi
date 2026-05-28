@@ -21,7 +21,7 @@ export function useAuth()
             setLoading(false)
         }
     }
-   async function handleLogin(email, password)
+   async function handleLogin({email, password})
 {
     try
     {
@@ -29,7 +29,8 @@ export function useAuth()
 
         const data = await login({email,password})
 
-        dispatch(setUser(data.user))
+        // console.log("Login:",data.user)
+        dispatch(setUser(data))
 
         return data
 
@@ -54,7 +55,7 @@ export function useAuth()
         {
             dispatch(setLoading(true))
             const data = await getME()
-            dispatch(setUser(data.user))
+            dispatch(setUser(data))
 
         }catch(err)
         {
