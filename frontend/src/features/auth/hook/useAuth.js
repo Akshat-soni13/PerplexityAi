@@ -55,15 +55,15 @@ export function useAuth()
         {
             dispatch(setLoading(true))
             const data = await getME()
-            dispatch(setUser(data))
+            dispatch(setUser(data.user))
 
         }catch(err)
         {
-            dipatch(setError(err.response?.data?.message || "Failed To fetch Profile "))
+            dispatch(setError(err.response?.data?.message || "Failed To fetch Profile "))
         }
         finally
         {
-            setLoading(false)
+            dispatch(setLoading(false))
         }
     }
 
