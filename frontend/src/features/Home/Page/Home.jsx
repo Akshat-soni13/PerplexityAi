@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Search,
   Sparkles,
@@ -9,11 +9,19 @@ import {
   Globe,
 } from "lucide-react";
 import { useSelector } from "react-redux";
+import { useChat } from "../../chat/Hooks/useChat";
+
+
 
 const Home = () => {
 
+  const chat = useChat()
 
-  const { user } = useSelector(state=>state.auth)
+  const {user} = useSelector(state=> state.auth)
+  
+  useEffect(()=>{
+    chat.initialzeSocketConnection()
+  },[])
 
   console.log(user)
 

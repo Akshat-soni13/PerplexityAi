@@ -9,7 +9,7 @@ const Protected = ({children}) => {
 
     const loading = useSelector(state=> state.auth.loading)
 
-    if(Loader)
+    if(loading)
     {
         <Loader></Loader>
     }
