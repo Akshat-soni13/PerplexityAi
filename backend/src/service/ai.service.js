@@ -1,6 +1,6 @@
 import { ChatMistralAI } from "@langchain/mistralai"
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
-import { HumanMessage, SystemMessage } from "@langchain/core/messages";
+import { HumanMessage, SystemMessage,AIMessage} from "@langchain/core/messages";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -17,12 +17,23 @@ const MistralModel = new ChatMistralAI({
 
 // gemini bhot sara models offer karta hai 
 
-export async function generateResponse(message)
+export async function generateResponse(messages)
 {
-   const response = await geminiModel.invoke([
-    new HumanMessage(message)
-    ])
+   const response = await geminiModel.invoke(messages.map(msg=>{
 
+    if(msg.role=="user")
+    {
+       return new HumanMessage(msg.content)
+    }
+    else if(msg.role=="ai")
+    {
+      return  new AIMessage(msg.content)
+    }
+
+   }
+
+   
+  ))
     return response.text
 
 }
